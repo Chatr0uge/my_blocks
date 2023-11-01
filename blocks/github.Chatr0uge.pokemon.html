@@ -1,26 +1,18 @@
-{{/* Wowchemy Blocks: About (customised) */}}
-{{/* Documentation: https://wowchemy.com/blocks/ */}}
-{{/* License: https://github.com/wowchemy/wowchemy-hugo-themes/blob/main/LICENSE.md */}}
+{{/* My Custom Block */}}
 
-{{/* Initialise */}}
+{{/* Get variables */}}
 {{ $page := .wcPage }}
 {{ $block := .wcBlock }}
 
-{{ $author := "" }}
-{{ if .author }}
-  {{ $author = .author }}
-{{ else }}
-  {{ $author = $block.Params.author }}
-{{end}}
+{{/* Add your block layout below */}}
+{{/* Styles can be added to the SCSS file */}}
+{{/* Access custom front matter options via `$block.content`  */}}
+{{/* E.g. Access a `mytext` field via `$block.content.mytext` */}}
 
-{{ $person_page_path := (printf "/authors/%s" $author) }}
-{{ $person_page := site.GetPage $person_page_path }}
-{{ if not $person_page }}
-  {{ errorf "Could not find an author page at `%s`. Please check the value of `author` in your About widget and create an associated author page if one does not already exist. See https://wowchemy.com/docs/page-builder/#about " $person_page_path }}
-{{end}}
-{{ $person := $person_page.Params }}
-{{ $avatar := ($person_page.Resources.ByType "image").GetMatch "*avatar*" }}
-{{ $avatar_shape := site.Params.features.avatar.shape | default "circle" }}
+{{/* Parse the fields as Markdown with Hugo's `RenderString` */}}
+{{ $title := $block.content.text | emojify | $page.RenderString }}
+{{ $text := $block.content.text | emojify | $page.RenderString }}
 
-<!-- About widget -->
+<h2>{{$title}}</h2>
 
+<p>{{$text}}</p>
